@@ -35,10 +35,48 @@ _I'd love for you to make the most of this project - it's all about learning, he
 3. **Install Required Dependencies**
 
    ```bash
-   npm i
+# installs nvm (Node Version Manager)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+# download and install Node.js (you may need to restart the terminal)
+nvm install 22
+
+# verifies the right Node.js version is in the environment
+node -v # should print `v22.6.0`
+
+# verifies the right npm version is in the environment
+npm -v # should print `10.8.2`
+   
+npm i
    ```
 
+
 4. **Set up your MongoDB Database**
+
+From a terminal, install gnupg and curl if they are not already available:
+
+sudo apt-get install gnupg curl
+
+To import the MongoDB public GPG key, run the following command:
+
+curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
+   sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg \
+   --dearmor
+
+Create the /etc/apt/sources.list.d/mongodb-org-7.0.list file for Ubuntu 22.04 (Jammy):
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+
+Issue the following command to reload the local package database:
+
+sudo apt-get update
+
+To install the latest stable version, issue the following
+
+sudo apt-get install -y mongodb-org
+
+You can start the mongod process by issuing the following command:
+
+sudo systemctl start mongod
 
    - Open MongoDB Compass and connect MongoDB locally at `mongodb://localhost:27017`.
 
